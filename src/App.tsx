@@ -211,6 +211,25 @@ const icons: Record<string, React.ReactNode> = {
   play: <Play size={14} strokeWidth={1.6} />,
 };
 
+/* ── professional logo icon ── */
+function Logo({ t, size = 32 }: { t: Theme; size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="32" height="32" rx="8" fill={t.logoIcon} fillOpacity="0.1" />
+      <path
+        d="M10 18C10 16.8954 10.8954 16 12 16H20C21.1046 16 22 16.8954 22 18V20C22 21.1046 21.1046 22 20 22H12C10.8954 22 10 21.1046 10 20V18Z"
+        fill={t.logoIcon}
+        fillOpacity="0.8"
+      />
+      <path
+        d="M10 12C10 10.8954 10.8954 10 12 10H20C21.1046 10 22 10.8954 22 12V14C22 15.1046 21.1046 16 20 16H12C10.8954 16 10 15.1046 10 14V12Z"
+        fill={t.logoIcon}
+        style={{ filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.1))" }}
+      />
+    </svg>
+  );
+}
+
 /* ── dark mode toggle ── */
 interface DarkToggleProps {
   dark: boolean;
@@ -282,14 +301,14 @@ function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t,
       <div style={{ padding: collapsed ? "20px 0 10px" : "20px 18px 10px", display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "space-between", transition: "padding .3s" }}>
         {collapsed ? (
           <div style={{ width: 32, height: 32, borderRadius: 8, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <img src="/gorilla.svg" alt="Subwise logo" style={{ width: 32, height: 32, objectFit: "contain" }} />
+            <Logo t={t} size={32} />
           </div>
         ) : (
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
             <div style={{ width: 32, height: 32, borderRadius: 8, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <img src="/gorilla.svg" alt="Subwise logo" style={{ width: 32, height: 32, objectFit: "contain" }} />
+              <Logo t={t} size={32} />
             </div>
-            <span style={{ fontWeight: 700, fontSize: 15.5, color: t.text, letterSpacing: -0.3, whiteSpace: "nowrap", transition: "color .3s" }}>Subwise</span>
+            <span style={{ fontWeight: 700, fontSize: 15.5, color: t.text, letterSpacing: -0.3, whiteSpace: "nowrap", transition: "color .3s" }}>subbie</span>
           </div>
         )}
         {isMobile && (
@@ -558,16 +577,12 @@ export default function App() {
                   </div>
                 </div>
                 <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 7, padding: "7px 12px", borderRadius: 8, border: `1px solid ${t.inputBorder}`, background: t.input, fontSize: 12.5, color: t.text4, transition: "all .3s" }}>
-                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><circle cx="6" cy="6" r="4.5" /><path d="M13 13l-3-3" /></svg>
-                    {!isMobile && "Search..."}
-                  </div>
                   {/* user avatar pill */}
                   <div style={{ display: "flex", alignItems: "center", gap: 9, padding: "6px 12px 6px 6px", borderRadius: 40, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", transition: "all .25s" }}>
-                    <div style={{ width: 32, height: 32, borderRadius: "50%", background: t.avatar, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 11, fontWeight: 700, flexShrink: 0 }}>RA</div>
+                    <div style={{ width: 32, height: 32, borderRadius: "50%", background: t.avatar, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 11, fontWeight: 700, flexShrink: 0 }}>U</div>
                     {!isMobile && (
                       <div>
-                        <div style={{ fontSize: 12.5, fontWeight: 600, color: t.text, lineHeight: 1.2, transition: "color .3s" }}>Rahat Ali</div>
+                        <div style={{ fontSize: 12.5, fontWeight: 600, color: t.text, lineHeight: 1.2, transition: "color .3s" }}>User</div>
                         <div style={{ fontSize: 10.5, color: t.text4, lineHeight: 1.2 }}>Personal Plan</div>
                       </div>
                     )}
