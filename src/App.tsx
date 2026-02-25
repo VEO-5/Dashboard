@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
+import {
+  LayoutDashboard, CreditCard, BarChart2, Bell, Settings, HelpCircle,
+  Plus, Trash2, Pause, Play, Search, Menu, X, ChevronLeft, Sun, Moon
+} from "lucide-react";
 
 function useWindowSize() {
   const [s, setS] = useState({ w: window.innerWidth });
@@ -194,17 +198,17 @@ function parseDate(d: string): number {
 
 
 const icons: Record<string, React.ReactNode> = {
-  grid: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5.5" height="5.5" rx="1.2" /><rect x="10.5" y="2" width="5.5" height="5.5" rx="1.2" /><rect x="2" y="10.5" width="5.5" height="5.5" rx="1.2" /><rect x="10.5" y="10.5" width="5.5" height="5.5" rx="1.2" /></svg>,
-  list: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><path d="M3 5h12M3 9h12M3 13h12" /></svg>,
-  plus: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M8 3v10M3 8h10" /></svg>,
-  bell: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M13.5 6.5a4.5 4.5 0 00-9 0c0 5-2.25 6.5-2.25 6.5h13.5s-2.25-1.5-2.25-6.5" /><path d="M10.3 15a1.5 1.5 0 01-2.6 0" /></svg>,
-  settings: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="2.5" /><path d="M14.5 11a1 1 0 00.2 1.1l.1.1a1.2 1.2 0 01-1.7 1.7l-.1-.1a1 1 0 00-1.1-.2 1 1 0 00-.6.9v.3a1.2 1.2 0 01-2.4 0v-.2a1 1 0 00-.7-.9 1 1 0 00-1.1.2l-.1.1a1.2 1.2 0 01-1.7-1.7l.1-.1A1 1 0 005.5 11a1 1 0 00-.9-.6h-.3a1.2 1.2 0 010-2.4h.2a1 1 0 00.9-.7 1 1 0 00-.2-1.1l-.1-.1a1.2 1.2 0 011.7-1.7l.1.1a1 1 0 001.1.2h0a1 1 0 00.6-.9v-.3a1.2 1.2 0 012.4 0v.2a1 1 0 00.6.9 1 1 0 001.1-.2l.1-.1a1.2 1.2 0 011.7 1.7l-.1.1a1 1 0 00-.2 1.1v0a1 1 0 00.9.6h.3a1.2 1.2 0 010 2.4h-.2a1 1 0 00-.9.6z" /></svg>,
-  chart: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 14l4-5 4 3 4-7 2 2" /></svg>,
-  tag: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 2h7l7 7a2 2 0 010 2.8l-4.2 4.2a2 2 0 01-2.8 0L2 9z" /><circle cx="6.5" cy="6.5" r="1" /></svg>,
-  help: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="7" /><path d="M6.5 6.5a2.5 2.5 0 015 0c0 1.5-2.5 2-2.5 3.5" /><circle cx="9" cy="13" r=".5" fill="currentColor" /></svg>,
-  trash: <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 4h10M4 4V2h6v2M5 7v4M9 7v4M3 4l.7 8h6.6L11 4" /></svg>,
-  pause: <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 3v8M10 3v8" /></svg>,
-  play: <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 2l10 5-10 5z" /></svg>,
+  grid: <LayoutDashboard size={18} strokeWidth={1.6} />,
+  list: <CreditCard size={18} strokeWidth={1.6} />,
+  plus: <Plus size={16} strokeWidth={2} />,
+  bell: <Bell size={18} strokeWidth={1.6} />,
+  settings: <Settings size={18} strokeWidth={1.6} />,
+  chart: <BarChart2 size={18} strokeWidth={1.6} />,
+  tag: <CreditCard size={18} strokeWidth={1.6} />,
+  help: <HelpCircle size={18} strokeWidth={1.6} />,
+  trash: <Trash2 size={14} strokeWidth={1.6} />,
+  pause: <Pause size={14} strokeWidth={1.8} />,
+  play: <Play size={14} strokeWidth={1.6} />,
 };
 
 /* ── dark mode toggle ── */
@@ -257,9 +261,11 @@ interface SidebarProps {
   setDark: React.Dispatch<React.SetStateAction<boolean>>;
   t: Theme;
   totalNow: number;
+  collapsed?: boolean;
+  onToggleCollapse?: () => void;
 }
 
-function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t, totalNow }: SidebarProps) {
+function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t, totalNow, collapsed = false, onToggleCollapse }: SidebarProps) {
   const navItems = [
     { name: "Dashboard", icon: "grid" },
     { name: "Subscriptions", icon: "tag" },
@@ -270,13 +276,22 @@ function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t,
   ];
 
   const content = (
-    <aside style={{ width: "100%", height: "100%", background: t.sidebar, display: "flex", flexDirection: "column", borderRight: `1px solid ${t.sidebarBorder}`, fontFamily: "inherit", transition: "background .3s, border-color .3s" }}>
+    <aside style={{ width: "100%", height: "100%", background: t.sidebar, display: "flex", flexDirection: "column", borderRight: `1px solid ${t.sidebarBorder}`, fontFamily: "inherit", transition: "background .3s, border-color .3s", overflow: "hidden" }}>
+
       {/* logo */}
-      <div style={{ padding: "20px 18px 10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-          <div style={{ width: 28, height: 28, borderRadius: 8, background: t.logoIcon, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>✦</div>
-          <span style={{ fontWeight: 700, fontSize: 15.5, color: t.text, letterSpacing: -0.3, transition: "color .3s" }}>SubTrackr</span>
-        </div>
+      <div style={{ padding: collapsed ? "20px 0 10px" : "20px 18px 10px", display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "space-between", transition: "padding .3s" }}>
+        {collapsed ? (
+          <div style={{ width: 32, height: 32, borderRadius: 8, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <img src="/gorilla.svg" alt="Subwise logo" style={{ width: 32, height: 32, objectFit: "contain" }} />
+          </div>
+        ) : (
+          <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <img src="/gorilla.svg" alt="Subwise logo" style={{ width: 32, height: 32, objectFit: "contain" }} />
+            </div>
+            <span style={{ fontWeight: 700, fontSize: 15.5, color: t.text, letterSpacing: -0.3, whiteSpace: "nowrap", transition: "color .3s" }}>Subwise</span>
+          </div>
+        )}
         {isMobile && (
           <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: t.text3, display: "flex", padding: 4 }}>
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 4l10 10M14 4L4 14" /></svg>
@@ -284,21 +299,27 @@ function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t,
         )}
       </div>
 
-      {/* user */}
-      <div style={{ padding: "6px 18px 14px", display: "flex", alignItems: "center", gap: 9 }}>
-        <div style={{ width: 30, height: 30, borderRadius: "50%", background: t.avatar, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 11, fontWeight: 600 }}>RA</div>
-        <div>
-          <div style={{ fontSize: 12.5, fontWeight: 600, color: t.text, transition: "color .3s" }}>Rahat Ali</div>
-          <div style={{ fontSize: 10.5, color: t.text4 }}>Personal Plan</div>
-        </div>
-      </div>
-
       {/* nav */}
-      <div style={{ flex: 1, padding: "0 10px", overflowY: "auto" }}>
-        <div style={{ padding: "8px 8px 6px", fontSize: 10, fontWeight: 600, letterSpacing: 1.2, color: t.text5, textTransform: "uppercase" }}>MAIN MENU</div>
+      <div style={{ flex: 1, padding: collapsed ? "0 8px" : "0 10px", overflowY: "auto", overflowX: "hidden" }}>
+        {!collapsed && <div style={{ padding: "8px 8px 6px", fontSize: 10, fontWeight: 600, letterSpacing: 1.2, color: t.text5, textTransform: "uppercase", whiteSpace: "nowrap" }}>MAIN MENU</div>}
+        {collapsed && <div style={{ height: 14 }} />}
         {navItems.map(item => {
           const isA = active === item.name;
-          return (
+          return collapsed ? (
+            /* collapsed: icon-only circle */
+            <button key={item.name} title={item.name} onClick={() => { setActive(item.name); if (isMobile) onClose(); }} style={{
+              position: "relative", display: "flex", alignItems: "center", justifyContent: "center",
+              width: 40, height: 40, borderRadius: 10, margin: "0 auto 4px",
+              border: isA ? `1px solid ${t.navActiveBorder}` : "1px solid transparent",
+              background: isA ? t.navActive : "transparent",
+              color: isA ? t.text : t.text2,
+              cursor: "pointer", transition: "all .15s",
+            }}>
+              <span style={{ display: "flex" }}>{icons[item.icon]}</span>
+              {item.badge && <span style={{ position: "absolute", top: 4, right: 4, background: t.accentBadge, color: "#fff", fontSize: 8, fontWeight: 700, borderRadius: "50%", width: 13, height: 13, display: "flex", alignItems: "center", justifyContent: "center" }}>{item.badge}</span>}
+            </button>
+          ) : (
+            /* expanded: full row */
             <button key={item.name} onClick={() => { setActive(item.name); if (isMobile) onClose(); }} style={{
               display: "flex", alignItems: "center", gap: 9, width: "100%",
               padding: "7px 10px", borderRadius: 8,
@@ -307,32 +328,66 @@ function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t,
               color: isA ? t.text : t.text2,
               fontSize: 13, fontWeight: isA ? 600 : 400, cursor: "pointer",
               fontFamily: "inherit", textAlign: "left", marginBottom: 1,
-              transition: "all .15s",
+              transition: "all .15s", whiteSpace: "nowrap",
             }}>
-              <span style={{ display: "flex", opacity: 0.6 }}>{icons[item.icon]}</span>
+              <span style={{ display: "flex", opacity: 0.6, flexShrink: 0 }}>{icons[item.icon]}</span>
               <span style={{ flex: 1 }}>{item.name}</span>
               {item.badge && <span style={{ background: t.accentBadge, color: "#fff", fontSize: 9, fontWeight: 700, borderRadius: "50%", width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>{item.badge}</span>}
             </button>
           );
         })}
+
+        {/* collapse toggle button */}
+        {!isMobile && (
+          <button onClick={onToggleCollapse} title={collapsed ? "Expand sidebar" : "Collapse sidebar"} style={{
+            display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "flex-start",
+            gap: 9, width: collapsed ? 40 : "100%",
+            padding: collapsed ? "0" : "7px 10px",
+            height: 40, borderRadius: 10,
+            border: "1px solid transparent",
+            background: "transparent",
+            color: t.text3, cursor: "pointer",
+            fontFamily: "inherit", marginBottom: 1, marginTop: 8,
+            marginLeft: collapsed ? "auto" : 0, marginRight: collapsed ? "auto" : 0,
+            transition: "all .15s",
+          }}>
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              style={{ transform: collapsed ? "rotate(180deg)" : "none", transition: "transform .3s", flexShrink: 0 }}>
+              <path d="M10 4L6 8l4 4" />
+            </svg>
+            {!collapsed && <span style={{ fontSize: 12, color: t.text3 }}>Collapse</span>}
+          </button>
+        )}
       </div>
 
-      {/* monthly spend badge */}
-      <div style={{ margin: "8px 14px", padding: "12px 14px", borderRadius: 10, background: t.spendbg, border: `1px solid ${t.spendBorder}`, transition: "all .3s" }}>
-        <div style={{ fontSize: 10.5, color: t.text4, marginBottom: 4 }}>This month's spend</div>
-        <div style={{ fontSize: 22, fontWeight: 700, color: t.text, letterSpacing: -0.5 }}>${totalNow}</div>
-        <div style={{ fontSize: 10.5, color: t.greenText, marginTop: 2, fontWeight: 500 }}>↑ $20 from last month</div>
-      </div>
+      {/* monthly spend badge — hidden when collapsed */}
+      {!collapsed && (
+        <div style={{ margin: "8px 14px", padding: "12px 14px", borderRadius: 10, background: t.spendbg, border: `1px solid ${t.spendBorder}`, transition: "all .3s" }}>
+          <div style={{ fontSize: 10.5, color: t.text4, marginBottom: 4 }}>This month's spend</div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: t.text, letterSpacing: -0.5 }}>${totalNow}</div>
+          <div style={{ fontSize: 10.5, color: t.greenText, marginTop: 2, fontWeight: 500 }}>↑ $20 from last month</div>
+        </div>
+      )}
 
       {/* dark toggle + add btn */}
-      <div style={{ padding: "4px 14px 6px" }}>
-        <DarkToggle dark={dark} setDark={setDark} t={t} />
-      </div>
-      <div style={{ padding: "6px 14px 18px" }}>
-        <button style={{ width: "100%", padding: "9px", borderRadius: 8, border: "none", background: t.addBtn, color: t.addBtnText, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, transition: "background .3s" }}>
-          {icons.plus} Add Subscription
-        </button>
-      </div>
+      {!collapsed ? (
+        <>
+          <div style={{ padding: "4px 14px 6px" }}>
+            <DarkToggle dark={dark} setDark={setDark} t={t} />
+          </div>
+          <div style={{ padding: "6px 14px 18px" }}>
+            <button style={{ width: "100%", padding: "9px", borderRadius: 8, border: "none", background: t.addBtn, color: t.addBtnText, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, transition: "background .3s" }}>
+              {icons.plus} Add Subscription
+            </button>
+          </div>
+        </>
+      ) : (
+        <div style={{ padding: "8px 0 18px", display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+          <button title="Add Subscription" style={{ width: 40, height: 40, borderRadius: 10, border: "none", background: t.addBtn, color: t.addBtnText, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background .3s" }}>
+            {icons.plus}
+          </button>
+        </div>
+      )}
     </aside>
   );
 
@@ -437,6 +492,7 @@ export default function App() {
   const isDesktop = w >= 1080;
   const [dark, setDark] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeNav, setActiveNav] = useState("Dashboard");
   const [subs, setSubs] = useState(SUBS_INIT);
   const [filter, setFilter] = useState("All");
@@ -471,21 +527,22 @@ export default function App() {
         .main-scroll::-webkit-scrollbar-thumb { background:var(--scroll-thumb) !important; border-radius:4px !important; }
       `}</style>
 
-      <div style={{ "--scroll-thumb": t.scrollThumb, fontFamily: "'DM Sans', sans-serif", width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: t.outer, padding: isMobile ? 0 : isTablet ? "10px" : "18px", transition: "background .3s" } as React.CSSProperties}>
-        <div style={{ width: "100%", maxWidth: 1440, height: isMobile ? "100vh" : `calc(100vh - ${isTablet ? 20 : 36}px)`, background: t.frame, borderRadius: isMobile ? 0 : 20, overflow: "hidden", display: "flex", boxShadow: t.shadow, transition: "background .3s, box-shadow .3s" }}>
+      <div style={{ "--scroll-thumb": t.scrollThumb, fontFamily: "'DM Sans', sans-serif", width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: t.outer, padding: 0, transition: "background .3s" } as React.CSSProperties}>
+        <div style={{ width: "100%", maxWidth: 1440, height: "100vh", background: t.frame, borderRadius: 0, overflow: "hidden", display: "flex", boxShadow: "none", transition: "background .3s" }}>
 
           {/* sidebar */}
           {isMobile ? (
             <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} isMobile active={activeNav} setActive={setActiveNav} dark={dark} setDark={setDark} t={t} totalNow={totalNow} />
           ) : (
-            <div style={{ width: 220, minWidth: 220, height: "100%", flexShrink: 0 }}>
-              <Sidebar open isMobile={false} onClose={() => { }} active={activeNav} setActive={setActiveNav} dark={dark} setDark={setDark} t={t} totalNow={totalNow} />
+            <div style={{ width: sidebarCollapsed ? 64 : 220, minWidth: sidebarCollapsed ? 64 : 220, height: "100%", flexShrink: 0, transition: "width .3s cubic-bezier(.16,1,.3,1), min-width .3s cubic-bezier(.16,1,.3,1)" }}>
+              <Sidebar open isMobile={false} onClose={() => { }} active={activeNav} setActive={setActiveNav} dark={dark} setDark={setDark} t={t} totalNow={totalNow} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} />
             </div>
           )}
 
           {/* main */}
-          <div className="main-scroll" style={{ flex: 1, overflowY: "auto", background: t.bg, transition: "background .3s" }}>
-            <div style={{ padding: pad, display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", background: t.bg, overflow: "hidden", transition: "background .3s" }}>
+            {/* sticky header bar */}
+            <div style={{ padding: pad, paddingBottom: 14, background: t.bg, borderBottom: `1px solid ${t.divider}`, flexShrink: 0, transition: "background .3s, border-color .3s" }}>
 
               {/* header */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
@@ -496,7 +553,7 @@ export default function App() {
                     </button>
                   )}
                   <div>
-                    <h1 style={{ fontSize: isMobile ? 22 : 26, fontWeight: 700, color: t.text, letterSpacing: -0.5, lineHeight: 1, transition: "color .3s" }}>Overview</h1>
+                    <h1 style={{ fontSize: isMobile ? 22 : 26, fontWeight: 700, color: t.text, letterSpacing: -0.5, lineHeight: 1, transition: "color .3s" }}>{activeNav}</h1>
                     <div style={{ fontSize: 12, color: t.text4, marginTop: 2 }}>February 2026</div>
                   </div>
                 </div>
@@ -505,121 +562,144 @@ export default function App() {
                     <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><circle cx="6" cy="6" r="4.5" /><path d="M13 13l-3-3" /></svg>
                     {!isMobile && "Search..."}
                   </div>
-                  {/* dark toggle in header for desktop */}
-                  {!isMobile && <DarkToggle dark={dark} setDark={setDark} t={t} />}
-                </div>
-              </div>
-
-              {/* stat cards */}
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <StatCard label="Monthly Spend" value={totalNow} sub={`${activeSubs2.length} active subscriptions`} change="$20" positive={false} delay={0} t={t} />
-                <StatCard label="Annual Projection" value={totalNow * 12} sub="Based on current subs" change="12% YoY" positive={false} delay={80} t={t} />
-                <StatCard label="Active Subs" value={activeSubs2.length} sub={`${subs.length - activeSubs2.length} paused`} positive delay={160} prefix="" t={t} />
-                <StatCard label="Avg. Per Tool" value={Math.round(totalNow / (activeSubs2.length || 1))} sub="Per active subscription" delay={240} t={t} />
-              </div>
-
-              {/* charts row */}
-              <div style={{ display: "flex", gap: 14, flexWrap: isDesktop ? "nowrap" : "wrap" }}>
-                {/* trend */}
-                <div style={{ flex: "1 1 380px", minWidth: 0, background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 20px", transition: "all .3s" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, flexWrap: "wrap", gap: 8 }}>
-                    <div>
-                      <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>Monthly Spend Trend</div>
-                      <div style={{ fontSize: 11, color: t.text4, marginTop: 2 }}>Last 8 months</div>
-                    </div>
-                    <div style={{ padding: "5px 12px", borderRadius: 7, border: `1px solid ${t.inputBorder}`, fontSize: 12, color: t.text3, cursor: "pointer", background: t.input }}>2025–2026 ▾</div>
-                  </div>
-                  <div style={{ height: 200 }}>
-                    <ResponsiveContainer>
-                      <LineChart data={MONTHLY} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke={t.gridLine} vertical={false} />
-                        <XAxis dataKey="m" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: t.text4 }} />
-                        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: t.text4 }} domain={[80, "auto"]} tickFormatter={(v: any) => `$${v}`} />
-                        <Tooltip formatter={(v: any) => [`$${v ?? 0}`, "Spend"]} contentStyle={tooltipStyle} />
-                        <Line type="monotone" dataKey="spend" stroke={t.line} strokeWidth={2.5} dot={{ fill: t.dot, r: 4 }} activeDot={{ r: 6 }} animationDuration={1000} />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-
-                {/* category */}
-                <div style={{ flex: "1 1 260px", minWidth: 0, background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 20px", transition: "all .3s" }}>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: t.text, marginBottom: 4 }}>Spend by Category</div>
-                  <div style={{ fontSize: 11, color: t.text4, marginBottom: 16 }}>Current month breakdown</div>
-                  <div style={{ height: 200 }}>
-                    <ResponsiveContainer>
-                      <BarChart data={CATEGORY_DATA} margin={{ top: 0, right: 5, left: -20, bottom: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke={t.gridLine} vertical={false} />
-                        <XAxis dataKey="cat" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: t.text4 }} />
-                        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: t.text4 }} tickFormatter={(v: any) => `$${v}`} />
-                        <Tooltip formatter={(v: any) => [`$${v ?? 0}`, "Spend"]} contentStyle={tooltipStyle} />
-                        <Bar dataKey="total" fill={t.bar} radius={[3, 3, 0, 0]} animationDuration={900} />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-              </div>
-
-              {/* subs table + side panels */}
-              <div style={{ display: "flex", gap: 14, flexWrap: isDesktop ? "nowrap" : "wrap" }}>
-                {/* table */}
-                <div style={{ flex: "1 1 420px", minWidth: 0, background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 0 8px", transition: "all .3s" }}>
-                  <div style={{ padding: "0 14px 14px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
-                    <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>All Subscriptions</div>
-                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                      {categories.map(c => (
-                        <button key={c} onClick={() => setFilter(c)} style={{ padding: "4px 12px", borderRadius: 20, border: filter === c ? `1.5px solid ${t.pillActiveBorder}` : `1px solid ${t.inputBorder}`, background: t.pillBg, fontSize: 11, color: filter === c ? t.pillActive : t.pillText, fontWeight: filter === c ? 600 : 400, cursor: "pointer", fontFamily: "inherit", transition: "all .2s" }}>{c}</button>
-                      ))}
-                    </div>
-                  </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "36px 1fr 80px 80px 90px 80px 60px", gap: 8, padding: "6px 14px 8px", borderBottom: `1px solid ${t.divider}`, fontSize: 10.5, color: t.text5, fontWeight: 500 }}>
-                    <span /><span>Name</span><span>Price</span><span>Billing</span><span>Status</span><span>Next Due</span><span />
-                  </div>
-                  {filtered.map(s => <SubRow key={s.id} s={s} onToggle={toggleSub} onDelete={deleteSub} t={t} />)}
-                  {filtered.length === 0 && <div style={{ padding: "24px", textAlign: "center", color: t.text4, fontSize: 13 }}>No subscriptions in this category.</div>}
-                </div>
-
-                {/* right panels */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 14, flex: "0 0 280px", minWidth: 0 }}>
-                  {/* upcoming */}
-                  <div style={{ background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 18px 12px", transition: "all .3s" }}>
-                    <div style={{ fontSize: 15, fontWeight: 600, color: t.text, marginBottom: 4 }}>Upcoming Renewals</div>
-                    <div style={{ fontSize: 11, color: t.text4, marginBottom: 14 }}>Next 7 days</div>
-                    {UPCOMING.map((s, i) => (
-                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: i < UPCOMING.length - 1 ? `1px solid ${t.divider2}` : "none" }}>
-                        <LogoImg src={s.logo} color={s.color} size={30} />
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ fontSize: 12.5, fontWeight: 600, color: t.text, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{s.name}</div>
-                          <div style={{ fontSize: 11, color: t.text4 }}>{s.next}</div>
-                        </div>
-                        <div style={{ fontSize: 13, fontWeight: 600, color: t.text }}>${s.price}</div>
+                  {/* user avatar pill */}
+                  <div style={{ display: "flex", alignItems: "center", gap: 9, padding: "6px 12px 6px 6px", borderRadius: 40, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", transition: "all .25s" }}>
+                    <div style={{ width: 32, height: 32, borderRadius: "50%", background: t.avatar, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 11, fontWeight: 700, flexShrink: 0 }}>RA</div>
+                    {!isMobile && (
+                      <div>
+                        <div style={{ fontSize: 12.5, fontWeight: 600, color: t.text, lineHeight: 1.2, transition: "color .3s" }}>Rahat Ali</div>
+                        <div style={{ fontSize: 10.5, color: t.text4, lineHeight: 1.2 }}>Personal Plan</div>
                       </div>
-                    ))}
-                  </div>
-
-                  {/* recent payments */}
-                  <div style={{ background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 18px 12px", transition: "all .3s" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-                      <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>Recent Payments</div>
-                      <span style={{ fontSize: 12, color: t.text2, cursor: "pointer", fontWeight: 500 }}>View All</span>
-                    </div>
-                    {RECENT.map((r, i) => (
-                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: i < RECENT.length - 1 ? `1px solid ${t.divider2}` : "none" }}>
-                        <LogoImg src={r.logo} color={r.color} size={28} />
-                        <div style={{ flex: 1 }}>
-                          <div style={{ fontSize: 12.5, fontWeight: 500, color: t.text }}>{r.sub}</div>
-                          <div style={{ fontSize: 11, color: t.text4 }}>{r.date}</div>
-                        </div>
-                        <div style={{ fontSize: 13, fontWeight: 600, color: t.red }}>−${r.amount}</div>
-                      </div>
-                    ))}
+                    )}
                   </div>
                 </div>
               </div>
-
             </div>
-          </div>
-        </div>
+            {/* scrollable content */}
+            <div className="main-scroll" style={{ flex: 1, overflowY: "auto" }}>
+              <div style={{ padding: pad, display: "flex", flexDirection: "column", gap: 14 }}>
+
+                {/* ── Dashboard view ── */}
+                {activeNav === "Dashboard" && (<>
+
+                  {/* stat cards */}
+                  <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                    <StatCard label="Monthly Spend" value={totalNow} sub={`${activeSubs2.length} active subscriptions`} change="$20" positive={false} delay={0} t={t} />
+                    <StatCard label="Annual Projection" value={totalNow * 12} sub="Based on current subs" change="12% YoY" positive={false} delay={80} t={t} />
+                    <StatCard label="Active Subs" value={activeSubs2.length} sub={`${subs.length - activeSubs2.length} paused`} positive delay={160} prefix="" t={t} />
+                    <StatCard label="Avg. Per Tool" value={Math.round(totalNow / (activeSubs2.length || 1))} sub="Per active subscription" delay={240} t={t} />
+                  </div>
+
+                  {/* charts row */}
+                  <div style={{ display: "flex", gap: 14, flexWrap: isDesktop ? "nowrap" : "wrap" }}>
+                    {/* trend */}
+                    <div style={{ flex: "1 1 380px", minWidth: 0, background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 20px", transition: "all .3s" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, flexWrap: "wrap", gap: 8 }}>
+                        <div>
+                          <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>Monthly Spend Trend</div>
+                          <div style={{ fontSize: 11, color: t.text4, marginTop: 2 }}>Last 8 months</div>
+                        </div>
+                        <div style={{ padding: "5px 12px", borderRadius: 7, border: `1px solid ${t.inputBorder}`, fontSize: 12, color: t.text3, cursor: "pointer", background: t.input }}>2025–2026 ▾</div>
+                      </div>
+                      <div style={{ height: 200 }}>
+                        <ResponsiveContainer>
+                          <LineChart data={MONTHLY} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke={t.gridLine} vertical={false} />
+                            <XAxis dataKey="m" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: t.text4 }} />
+                            <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: t.text4 }} domain={[80, "auto"]} tickFormatter={(v: any) => `$${v}`} />
+                            <Tooltip formatter={(v: any) => [`$${v ?? 0}`, "Spend"]} contentStyle={tooltipStyle} />
+                            <Line type="monotone" dataKey="spend" stroke={t.line} strokeWidth={2.5} dot={{ fill: t.dot, r: 4 }} activeDot={{ r: 6 }} animationDuration={1000} />
+                          </LineChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </div>
+
+                    {/* category */}
+                    <div style={{ flex: "1 1 260px", minWidth: 0, background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 20px", transition: "all .3s" }}>
+                      <div style={{ fontSize: 15, fontWeight: 600, color: t.text, marginBottom: 4 }}>Spend by Category</div>
+                      <div style={{ fontSize: 11, color: t.text4, marginBottom: 16 }}>Current month breakdown</div>
+                      <div style={{ height: 200 }}>
+                        <ResponsiveContainer>
+                          <BarChart data={CATEGORY_DATA} margin={{ top: 0, right: 5, left: -20, bottom: 0 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke={t.gridLine} vertical={false} />
+                            <XAxis dataKey="cat" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: t.text4 }} />
+                            <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: t.text4 }} tickFormatter={(v: any) => `$${v}`} />
+                            <Tooltip formatter={(v: any) => [`$${v ?? 0}`, "Spend"]} contentStyle={tooltipStyle} />
+                            <Bar dataKey="total" fill={t.bar} radius={[3, 3, 0, 0]} animationDuration={900} />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </div>
+                  </div>
+
+                </>)}
+
+                {/* ── Subscriptions view ── */}
+                {activeNav === "Subscriptions" && (<>
+
+                  {/* subs table + side panels */}
+                  <div style={{ display: "flex", gap: 14, flexWrap: isDesktop ? "nowrap" : "wrap" }}>
+                    {/* table */}
+                    <div style={{ flex: "1 1 420px", minWidth: 0, background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 0 8px", transition: "all .3s" }}>
+                      <div style={{ padding: "0 14px 14px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
+                        <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>All Subscriptions</div>
+                        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                          {categories.map(c => (
+                            <button key={c} onClick={() => setFilter(c)} style={{ padding: "4px 12px", borderRadius: 20, border: filter === c ? `1.5px solid ${t.pillActiveBorder}` : `1px solid ${t.inputBorder}`, background: t.pillBg, fontSize: 11, color: filter === c ? t.pillActive : t.pillText, fontWeight: filter === c ? 600 : 400, cursor: "pointer", fontFamily: "inherit", transition: "all .2s" }}>{c}</button>
+                          ))}
+                        </div>
+                      </div>
+                      <div style={{ display: "grid", gridTemplateColumns: "36px 1fr 80px 80px 90px 80px 60px", gap: 8, padding: "6px 14px 8px", borderBottom: `1px solid ${t.divider}`, fontSize: 10.5, color: t.text5, fontWeight: 500 }}>
+                        <span /><span>Name</span><span>Price</span><span>Billing</span><span>Status</span><span>Next Due</span><span />
+                      </div>
+                      {filtered.map(s => <SubRow key={s.id} s={s} onToggle={toggleSub} onDelete={deleteSub} t={t} />)}
+                      {filtered.length === 0 && <div style={{ padding: "24px", textAlign: "center", color: t.text4, fontSize: 13 }}>No subscriptions in this category.</div>}
+                    </div>
+
+                    {/* right panels */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 14, flex: "0 0 280px", minWidth: 0 }}>
+                      {/* upcoming */}
+                      <div style={{ background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 18px 12px", transition: "all .3s" }}>
+                        <div style={{ fontSize: 15, fontWeight: 600, color: t.text, marginBottom: 4 }}>Upcoming Renewals</div>
+                        <div style={{ fontSize: 11, color: t.text4, marginBottom: 14 }}>Next 7 days</div>
+                        {UPCOMING.map((s, i) => (
+                          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: i < UPCOMING.length - 1 ? `1px solid ${t.divider2}` : "none" }}>
+                            <LogoImg src={s.logo} color={s.color} size={30} />
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ fontSize: 12.5, fontWeight: 600, color: t.text, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{s.name}</div>
+                              <div style={{ fontSize: 11, color: t.text4 }}>{s.next}</div>
+                            </div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: t.text }}>${s.price}</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* recent payments */}
+                      <div style={{ background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 18px 12px", transition: "all .3s" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+                          <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>Recent Payments</div>
+                          <span style={{ fontSize: 12, color: t.text2, cursor: "pointer", fontWeight: 500 }}>View All</span>
+                        </div>
+                        {RECENT.map((r, i) => (
+                          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: i < RECENT.length - 1 ? `1px solid ${t.divider2}` : "none" }}>
+                            <LogoImg src={r.logo} color={r.color} size={28} />
+                            <div style={{ flex: 1 }}>
+                              <div style={{ fontSize: 12.5, fontWeight: 500, color: t.text }}>{r.sub}</div>
+                              <div style={{ fontSize: 11, color: t.text4 }}>{r.date}</div>
+                            </div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: t.red }}>−${r.amount}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                </>)}
+
+              </div>
+            </div>
+          </div>   {/* closes main-scroll */}
+        </div>   {/* closes main flex-column */}
       </div>
     </>
   );

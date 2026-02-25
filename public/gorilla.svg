@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" fill="none">
+  <!-- Body / torso -->
+  <ellipse cx="100" cy="145" rx="62" ry="58" fill="#1a1a1a"/>
+  <!-- Left arm -->
+  <ellipse cx="38" cy="150" rx="28" ry="44" rx2="22" fill="#1a1a1a" transform="rotate(-12 38 150)"/>
+  <ellipse cx="38" cy="150" rx="20" ry="40" fill="#1a1a1a" transform="rotate(-12 38 150)"/>
+  <!-- Right arm -->
+  <ellipse cx="162" cy="150" rx="28" ry="44" fill="#1a1a1a" transform="rotate(12 162 150)"/>
+  <!-- Left leg -->
+  <ellipse cx="76" cy="205" rx="22" ry="16" fill="#1a1a1a"/>
+  <!-- Right leg -->
+  <ellipse cx="124" cy="205" rx="22" ry="16" fill="#1a1a1a"/>
+  <!-- Yellow shirt -->
+  <path d="M62 118 Q100 108 138 118 L140 160 Q100 168 60 160 Z" fill="#F5A623"/>
+  <!-- Overalls bib -->
+  <rect x="82" y="105" width="36" height="52" rx="5" fill="#1a1a1a"/>
+  <!-- Overalls straps -->
+  <rect x="86" y="98" width="10" height="30" rx="4" fill="#1a1a1a" transform="rotate(-8 91 113)"/>
+  <rect x="104" y="98" width="10" height="30" rx="4" fill="#1a1a1a" transform="rotate(8 109 113)"/>
+  <!-- Strap buttons -->
+  <circle cx="89" cy="111" r="4" fill="#333"/>
+  <circle cx="111" cy="111" r="4" fill="#333"/>
+  <!-- Head -->
+  <ellipse cx="100" cy="72" rx="42" ry="44" fill="#1a1a1a"/>
+  <!-- Face plate (lighter area) -->
+  <ellipse cx="100" cy="82" rx="26" ry="24" fill="#2d2d2d"/>
+  <!-- Eyes -->
+  <ellipse cx="89" cy="72" rx="7" ry="7" fill="white"/>
+  <ellipse cx="111" cy="72" rx="7" ry="7" fill="white"/>
+  <circle cx="91" cy="73" r="4" fill="#1a1a1a"/>
+  <circle cx="113" cy="73" r="4" fill="#1a1a1a"/>
+  <circle cx="92" cy="72" r="1.5" fill="white"/>
+  <circle cx="114" cy="72" r="1.5" fill="white"/>
+  <!-- Nose / muzzle -->
+  <ellipse cx="100" cy="84" rx="14" ry="10" fill="#3a3a3a"/>
+  <circle cx="96" cy="83" r="4" fill="#1a1a1a"/>
+  <circle cx="104" cy="83" r="4" fill="#1a1a1a"/>
+  <!-- Mouth / frown line -->
+  <path d="M91 93 Q100 89 109 93" stroke="#1a1a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Ear left -->
+  <ellipse cx="59" cy="70" rx="10" ry="12" fill="#1a1a1a"/>
+  <!-- Ear right -->
+  <ellipse cx="141" cy="70" rx="10" ry="12" fill="#1a1a1a"/>
+  <!-- Feet -->
+  <ellipse cx="76" cy="216" rx="20" ry="10" fill="#1a1a1a"/>
+  <ellipse cx="124" cy="216" rx="20" ry="10" fill="#1a1a1a"/>
+</svg>
