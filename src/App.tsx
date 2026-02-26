@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
 import {
   LayoutDashboard, CreditCard, BarChart2, Bell, Settings, HelpCircle,
-  Plus, Trash2, Pause, Play, Search, Menu, X, ChevronLeft, Sun, Moon
+  Plus, Trash2, Pause, Play, Search, Menu, X, ChevronLeft, Sun, Moon, Edit3
 } from "lucide-react";
 
 function useWindowSize() {
@@ -192,6 +192,27 @@ const RECENT = [
   { sub: "Claude Pro", amount: 20, date: "Feb 14", logo: "https://icons.duckduckgo.com/ip3/claude.ai.ico", color: "#7C5A4A" },
   { sub: "GitHub Copilot", amount: 10, date: "Feb 13", logo: "https://icons.duckduckgo.com/ip3/github.com.ico", color: "#4A6B7C" },
 ];
+
+const ALL_APPS = [
+  { name: "ChatGPT Plus", category: "LLM", price: 20, color: "#4A7C59", logo: "https://icons.duckduckgo.com/ip3/chat.openai.com.ico" },
+  { name: "Claude Pro", category: "LLM", price: 20, color: "#7C5A4A", logo: "https://icons.duckduckgo.com/ip3/claude.ai.ico" },
+  { name: "Cursor", category: "Coding", price: 20, color: "#2E2E35", logo: "https://icons.duckduckgo.com/ip3/cursor.com.ico" },
+  { name: "Gemini", category: "LLM", price: 20, color: "#4285F4", logo: "https://icons.duckduckgo.com/ip3/gemini.google.com.ico" },
+  { name: "Open Canvas", category: "Design", price: 0, color: "#FF4F00", logo: "https://icons.duckduckgo.com/ip3/opencanvas.io.ico" },
+  { name: "Lovable.dev", category: "Dev", price: 0, color: "#EC4899", logo: "https://icons.duckduckgo.com/ip3/lovable.dev.ico" },
+  { name: "TikTok", category: "Video", price: 0, color: "#EE1D52", logo: "https://icons.duckduckgo.com/ip3/tiktok.com.ico" },
+  { name: "Bolt.new", category: "Dev", price: 0, color: "#4B2DCB", logo: "https://icons.duckduckgo.com/ip3/bolt.new.ico" },
+  { name: "Figma", category: "Design", price: 15, color: "#F24E1E", logo: "https://icons.duckduckgo.com/ip3/figma.com.ico" },
+  { name: "Spotify", category: "Music", price: 11, color: "#1DB954", logo: "https://icons.duckduckgo.com/ip3/spotify.com.ico" },
+  { name: "Netflix", category: "Video", price: 16, color: "#E50914", logo: "https://icons.duckduckgo.com/ip3/netflix.com.ico" },
+  { name: "YouTube", category: "Video", price: 14, color: "#FF0000", logo: "https://icons.duckduckgo.com/ip3/youtube.com.ico" },
+  { name: "Linear", category: "Dev", price: 12, color: "#5E6AD2", logo: "https://icons.duckduckgo.com/ip3/linear.app.ico" },
+  { name: "Slack", category: "Productivity", price: 8, color: "#4A154B", logo: "https://icons.duckduckgo.com/ip3/slack.com.ico" },
+  { name: "Perplexity Pro", category: "Search", price: 20, color: "#7C6A4A", logo: "https://icons.duckduckgo.com/ip3/perplexity.ai.ico" },
+  { name: "Qwen", category: "LLM", price: 0, color: "#5454FF", logo: "https://icons.duckduckgo.com/ip3/qwenlm.ai.ico" },
+  { name: "Midjourney", category: "Image", price: 30, color: "#5A4A7C", logo: "https://icons.duckduckgo.com/ip3/midjourney.com.ico" },
+];
+
 
 const MONTH_MAP: Record<string, number> = {
   Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
@@ -474,11 +495,12 @@ function LogoImg({ src, color, size = 32, radius = 8 }: LogoImgProps) {
 interface SubRowProps {
   s: Sub;
   onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
+  onDelete: (s: Sub) => void;
+  onEdit: (s: Sub) => void;
   t: Theme;
 }
 
-function SubRow({ s, onToggle, onDelete, t }: SubRowProps) {
+function SubRow({ s, onToggle, onDelete, onEdit, t }: SubRowProps) {
   const [hov, setHov] = useState(false);
   return (
     <div onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
@@ -497,14 +519,228 @@ function SubRow({ s, onToggle, onDelete, t }: SubRowProps) {
       </div>
       <div style={{ fontSize: 11.5, color: t.text3 }}>{s.next}</div>
       <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
+        <button onClick={() => onEdit(s)} style={{ width: 26, height: 26, borderRadius: 20, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.text3 }}>
+          <Edit3 size={12} />
+        </button>
         <button onClick={() => onToggle(s.id)} style={{ width: 26, height: 26, borderRadius: 20, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.text3 }}>{s.status === "active" ? icons.pause : icons.play}</button>
-        <button onClick={() => onDelete(s.id)} style={{ width: 26, height: 26, borderRadius: 20, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.red }}>{icons.trash}</button>
+        <button onClick={() => onDelete(s)} style={{ width: 26, height: 26, borderRadius: 20, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.red }}>{icons.trash}</button>
+      </div>
+    </div>
+  );
+}
+
+
+/* ── add subscription modal ── */
+interface AddSubModalProps {
+  open: boolean;
+  onClose: () => void;
+  onAdd: (app: any) => void;
+  t: Theme;
+}
+
+function AddSubModal({ open, onClose, onAdd, t }: AddSubModalProps) {
+  const [q, setQ] = useState("");
+  const featured = ALL_APPS.slice(0, 8);
+  const filtered = ALL_APPS.filter(a => a.name.toLowerCase().includes(q.toLowerCase()));
+
+  if (!open) return null;
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 2000, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+      <div
+        onClick={onClose}
+        style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.4)", backdropFilter: "blur(8px)", transition: "all .3s" }}
+      />
+      <div style={{
+        position: "relative", width: "100%", maxWidth: 540, maxHeight: "85vh",
+        background: t.card === "#fff" ? "rgba(255,255,255,0.75)" : "rgba(30,30,35,0.75)",
+        backdropFilter: "blur(24px)", borderRadius: 32, border: `1px solid ${t.divider}`,
+        boxShadow: "0 30px 60px rgba(0,0,0,0.25)", display: "flex", flexDirection: "column", overflow: "hidden",
+        animation: "modalIn .4s cubic-bezier(.16,1,.3,1)"
+      }}>
+        <div style={{ padding: "28px 24px 20px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+            <div>
+              <h2 style={{ fontSize: 22, fontWeight: 700, color: t.text, letterSpacing: -0.6, lineHeight: 1 }}>Track New Service</h2>
+              <p style={{ fontSize: 13, color: t.text4, marginTop: 4 }}>Choose an app to start tracking</p>
+            </div>
+            <button onClick={onClose} style={{ background: t.input, border: `1px solid ${t.inputBorder}`, color: t.text2, width: 36, height: 36, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all .2s" }}>
+              <X size={20} />
+            </button>
+          </div>
+          <div style={{ position: "relative" }}>
+            <Search style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: t.text3 }} size={18} />
+            <input
+              autoFocus
+              placeholder="Search 100+ applications..."
+              value={q}
+              onChange={e => setQ(e.target.value)}
+              style={{ width: "100%", padding: "14px 14px 14px 44px", borderRadius: 16, border: `1px solid ${t.inputBorder}`, background: t.input, color: t.text, fontFamily: "inherit", outline: "none", fontSize: 15, transition: "all .2s" }}
+            />
+          </div>
+        </div>
+        <div className="main-scroll" style={{ flex: 1, overflowY: "auto", padding: "0 24px 28px" }}>
+          {q === "" && (
+            <div style={{ fontSize: 11, fontWeight: 700, color: t.text5, letterSpacing: 1, textTransform: "uppercase", marginBottom: 14 }}>Featured Services</div>
+          )}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))", gap: 12 }}>
+            {(q === "" ? featured : filtered).map(app => (
+              <button
+                key={app.name}
+                onClick={() => { onAdd(app); onClose(); }}
+                style={{
+                  padding: "20px 12px", borderRadius: 24, border: `1px solid ${t.divider2}`,
+                  background: t.card === "#fff" ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.03)",
+                  cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 12,
+                  transition: "all .2s ease", textAlign: "center", position: "relative"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = t.card === "#fff" ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.08)";
+                  e.currentTarget.style.transform = "translateY(-4px)";
+                  e.currentTarget.style.borderColor = t.green;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = t.card === "#fff" ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.03)";
+                  e.currentTarget.style.transform = "none";
+                  e.currentTarget.style.borderColor = t.divider2;
+                }}
+              >
+                <LogoImg src={app.logo} color={app.color} size={48} radius={14} />
+                <div style={{ minWidth: 0, width: "100%" }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: t.text, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{app.name}</div>
+                  <div style={{ fontSize: 11, color: t.text4, marginTop: 2 }}>{app.category}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+          {filtered.length === 0 && q !== "" && (
+            <div style={{ padding: "40px 0", textAlign: "center" }}>
+              <div style={{ fontSize: 32, marginBottom: 12 }}>🔍</div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>No apps found</div>
+              <div style={{ fontSize: 13, color: t.text4, marginTop: 4 }}>Try searching for something else</div>
+            </div>
+          )}
+        </div>
+      </div>
+      <style>{`
+        @keyframes modalIn {
+          from { opacity: 0; transform: scale(0.9) translateY(20px); }
+          to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+}
+/* ── edit subscription modal ── */
+interface EditModalProps {
+  open: boolean;
+  sub: Sub | null;
+  onClose: () => void;
+  onUpdate: (id: number, updates: Partial<Sub>) => void;
+  t: Theme;
+}
+
+function EditModal({ open, sub, onClose, onUpdate, t }: EditModalProps) {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [billing, setBilling] = useState("Monthly");
+  const [next, setNext] = useState("");
+
+  useEffect(() => {
+    if (sub) {
+      setName(sub.name);
+      setPrice(sub.price);
+      setBilling(sub.billing);
+      setNext(sub.next);
+    }
+  }, [sub]);
+
+  if (!open || !sub) return null;
+
+  const handleSave = () => {
+    onUpdate(sub.id, { name, price, billing, next });
+    onClose();
+  };
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 2000, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+      <div onClick={onClose} style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.4)", backdropFilter: "blur(8px)" }} />
+      <div style={{
+        position: "relative", width: "100%", maxWidth: 460, background: t.card, borderRadius: 28, border: `1px solid ${t.divider}`,
+        boxShadow: "0 20px 50px rgba(0,0,0,0.2)", padding: 28, animation: "modalIn .3s ease-out"
+      }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 700, color: t.text }}>Edit Subscription</h2>
+          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: t.text3 }}><X size={20} /></button>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div>
+            <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: t.text4, marginBottom: 6 }}>Service Name</label>
+            <input value={name} onChange={e => setName(e.target.value)} style={{ width: "100%", padding: "12px 14px", borderRadius: 12, border: `1px solid ${t.inputBorder}`, background: t.input, color: t.text, fontSize: 14 }} />
+          </div>
+          <div style={{ display: "flex", gap: 12 }}>
+            <div style={{ flex: 1 }}>
+              <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: t.text4, marginBottom: 6 }}>Monthly Price ($)</label>
+              <input type="number" value={price} onChange={e => setPrice(Number(e.target.value))} style={{ width: "100%", padding: "12px 14px", borderRadius: 12, border: `1px solid ${t.inputBorder}`, background: t.input, color: t.text, fontSize: 14 }} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: t.text4, marginBottom: 6 }}>Billing Cycle</label>
+              <select value={billing} onChange={e => setBilling(e.target.value)} style={{ width: "100%", padding: "12px 14px", borderRadius: 12, border: `1px solid ${t.inputBorder}`, background: t.input, color: t.text, fontSize: 14 }}>
+                <option>Monthly</option>
+                <option>Yearly</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: t.text4, marginBottom: 6 }}>Next Renewal</label>
+            <input value={next} onChange={e => setNext(e.target.value)} placeholder="e.g. Mar 1" style={{ width: "100%", padding: "12px 14px", borderRadius: 12, border: `1px solid ${t.inputBorder}`, background: t.input, color: t.text, fontSize: 14 }} />
+          </div>
+        </div>
+
+        <button onClick={handleSave} style={{ width: "100%", marginTop: 24, padding: "14px", borderRadius: 14, border: "none", background: t.addBtn, color: t.addBtnText, fontWeight: 600, cursor: "pointer", transition: "all .2s" }}>Save Changes</button>
+      </div>
+    </div>
+  );
+}
+
+/* ── confirmation modal ── */
+interface ConfirmDeleteModalProps {
+  open: boolean;
+  sub: Sub | null;
+  onClose: () => void;
+  onConfirm: () => void;
+  t: Theme;
+}
+
+function ConfirmDeleteModal({ open, sub, onClose, onConfirm, t }: ConfirmDeleteModalProps) {
+  if (!open || !sub) return null;
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 3000, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+      <div onClick={onClose} style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.4)", backdropFilter: "blur(4px)" }} />
+      <div style={{
+        position: "relative", width: "100%", maxWidth: 360, background: t.card, borderRadius: 24, border: `1px solid ${t.divider}`,
+        boxShadow: "0 20px 50px rgba(0,0,0,0.2)", padding: 24, textAlign: "center", animation: "modalIn .3s ease-out"
+      }}>
+        <div style={{ width: 56, height: 56, borderRadius: "50%", background: `${t.red}15`, color: t.red, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16, margin: "0 auto 16px" }}>
+          <Trash2 size={24} />
+        </div>
+        <h3 style={{ fontSize: 18, fontWeight: 700, color: t.text, marginBottom: 8 }}>Remove Subscription?</h3>
+        <p style={{ fontSize: 13, color: t.text4, lineHeight: 1.5, marginBottom: 24 }}>
+          Are you sure you want to remove <strong>{sub.name}</strong>? This action cannot be undone.
+        </p>
+        <div style={{ display: "flex", gap: 12 }}>
+          <button onClick={onClose} style={{ flex: 1, padding: "12px", borderRadius: 12, border: `1px solid ${t.inputBorder}`, background: t.input, color: t.text2, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Cancel</button>
+          <button onClick={onConfirm} style={{ flex: 1, padding: "12px", borderRadius: 12, border: "none", background: t.red, color: "#fff", fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Delete</button>
+        </div>
       </div>
     </div>
   );
 }
 
 /* ── main ── */
+
 export default function App() {
   const { w } = useWindowSize();
   const isMobile = w < 768;
@@ -514,10 +750,48 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeNav, setActiveNav] = useState("Dashboard");
-  const [subs, setSubs] = useState(SUBS_INIT);
+  const [subs, setSubs] = useState<Sub[]>(() => {
+    const saved = localStorage.getItem("subbie_data");
+    return saved ? JSON.parse(saved) : SUBS_INIT;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("subbie_data", JSON.stringify(subs));
+  }, [subs]);
   const [filter, setFilter] = useState("All");
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editingSub, setEditingSub] = useState<Sub | null>(null);
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+  const [subToDelete, setSubToDelete] = useState<Sub | null>(null);
 
   const t = dark ? DARK : LIGHT;
+
+  const updateSub = (id: number, updates: Partial<Sub>) => {
+    setSubs(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
+  };
+
+  const handleEdit = (s: Sub) => {
+    setEditingSub(s);
+    setEditModalOpen(true);
+  };
+
+
+  const onAddSubscription = (app: any) => {
+    const newSub = {
+      id: Date.now(),
+      name: app.name,
+      category: app.category,
+      price: app.price || 15,
+      billing: "Monthly",
+      status: "active",
+      logo: app.logo,
+      color: app.color,
+      next: "Mar 1"
+    };
+    setSubs(prev => [newSub, ...prev]);
+  };
+
 
   const activeSubs2 = subs.filter(s => s.status === "active");
   const totalNow = activeSubs2.reduce((a, s) => a + s.price, 0);
@@ -528,7 +802,18 @@ export default function App() {
 
 
   const toggleSub = (id: number) => setSubs(p => p.map(s => s.id === id ? { ...s, status: s.status === "active" ? "paused" : "active" } : s));
-  const deleteSub = (id: number) => setSubs(p => p.filter(s => s.id !== id));
+  const deleteSub = (s: Sub) => {
+    setSubToDelete(s);
+    setConfirmDeleteOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (subToDelete) {
+      setSubs(p => p.filter(s => s.id !== subToDelete.id));
+      setSubToDelete(null);
+      setConfirmDeleteOpen(false);
+    }
+  };
 
   const pad = isMobile ? "16px 14px" : "22px 26px";
 
@@ -579,9 +864,13 @@ export default function App() {
                 </div>
                 <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                   {/* add subscription button */}
-                  <button style={{ padding: "10px 18px", borderRadius: 40, border: "none", background: t.addBtn, color: t.addBtnText, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", gap: 6, transition: "background .3s", boxShadow: "0 2px 8px rgba(74, 124, 89, 0.2)" }}>
+                  <button
+                    onClick={() => setAddModalOpen(true)}
+                    style={{ padding: "10px 18px", borderRadius: 40, border: "none", background: t.addBtn, color: t.addBtnText, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", gap: 6, transition: "background .3s", boxShadow: "0 2px 8px rgba(74, 124, 89, 0.2)" }}
+                  >
                     {icons.plus} {!isMobile && "Add Subscription"}
                   </button>
+
                 </div>
               </div>
             </div>
@@ -591,7 +880,6 @@ export default function App() {
 
                 {/* ── Dashboard view ── */}
                 {activeNav === "Dashboard" && (<>
-
                   {/* stat cards */}
                   <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                     <StatCard label="Monthly Spend" value={totalNow} sub={`${activeSubs2.length} active subscriptions`} change="$20" positive={false} delay={0} t={t} />
@@ -600,49 +888,128 @@ export default function App() {
                     <StatCard label="Avg. Per Tool" value={Math.round(totalNow / (activeSubs2.length || 1))} sub="Per active subscription" delay={240} t={t} />
                   </div>
 
-                  {/* charts row */}
-                  <div style={{ display: "flex", gap: 14, flexWrap: isDesktop ? "nowrap" : "wrap" }}>
+                  {/* active subs list */}
+                  <div style={{ marginTop: 10 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                      <div style={{ fontSize: 16, fontWeight: 700, color: t.text }}>Active Subscriptions</div>
+                      <button onClick={() => setActiveNav("Subscriptions")} style={{ fontSize: 12, color: t.text3, background: "none", border: "none", cursor: "pointer", fontWeight: 500 }}>View All</button>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 12 }}>
+                      {subs.length === 0 ? (
+                        <div style={{ gridColumn: "1 / -1", background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "40px", textAlign: "center" }}>
+                          <div style={{ fontSize: 40, marginBottom: 12 }}>✨</div>
+                          <h3 style={{ fontSize: 18, fontWeight: 700, color: t.text }}>No subscriptions yet</h3>
+                          <p style={{ fontSize: 13, color: t.text4, marginTop: 4 }}>Add your first service to start tracking your expenses.</p>
+                        </div>
+                      ) : (
+                        subs.filter(s => s.status === "active").slice(0, 8).map(s => (
+                          <div key={s.id} style={{
+                            background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`,
+                            padding: "16px 20px", display: "flex", alignItems: "center", gap: 14,
+                            transition: "all .3s ease", cursor: "pointer", position: "relative"
+                          }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = "translateY(-2px)";
+                              e.currentTarget.style.boxShadow = t.shadow;
+                              const actions = e.currentTarget.querySelector('.card-actions') as HTMLElement;
+                              if (actions) actions.style.opacity = "1";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = "none";
+                              e.currentTarget.style.boxShadow = "none";
+                              const actions = e.currentTarget.querySelector('.card-actions') as HTMLElement;
+                              if (actions) actions.style.opacity = "0";
+                            }}
+                          >
+                            <LogoImg src={s.logo} color={s.color} size={40} radius={12} />
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ fontSize: 14, fontWeight: 600, color: t.text, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{s.name}</div>
+                              <div style={{ fontSize: 11, color: t.text4 }}>{s.billing} • Next: {s.next}</div>
+                            </div>
+                            <div style={{ textAlign: "right" }}>
+                              <div style={{ fontSize: 14, fontWeight: 700, color: t.text }}>${s.price}</div>
+                              <div style={{ fontSize: 10, color: t.text5 }}>/mo</div>
+                            </div>
+
+                            {/* Hover Actions */}
+                            <div className="card-actions" style={{ position: "absolute", top: 8, right: 8, display: "flex", gap: 4, opacity: 0, transition: "opacity .2s" }}>
+                              <button onClick={(e) => { e.stopPropagation(); handleEdit(s); }} style={{ width: 24, height: 24, borderRadius: "50%", background: t.input, border: `1px solid ${t.inputBorder}`, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.text3 }}>
+                                <Edit3 size={12} />
+                              </button>
+                              <button onClick={(e) => { e.stopPropagation(); deleteSub(s); }} style={{ width: 24, height: 24, borderRadius: "50%", background: t.input, border: `1px solid ${t.inputBorder}`, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.red }}>
+                                <Trash2 size={12} />
+                              </button>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                </>)}
+
+
+                {/* ── Analytics view ── */}
+                {activeNav === "Analytics" && (<>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                     {/* trend */}
-                    <div style={{ flex: "1 1 380px", minWidth: 0, background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "22px 24px", transition: "all .3s" }}>
+                    <div style={{ background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "22px 24px", transition: "all .3s" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, flexWrap: "wrap", gap: 8 }}>
                         <div>
-                          <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>Monthly Spend Trend</div>
-                          <div style={{ fontSize: 11, color: t.text4, marginTop: 2 }}>Last 8 months</div>
+                          <div style={{ fontSize: 16, fontWeight: 600, color: t.text }}>Monthly Spend Trend</div>
+                          <div style={{ fontSize: 12, color: t.text4, marginTop: 2 }}>Visualizing your spending habits over the last 8 months</div>
                         </div>
-                        <div style={{ padding: "5px 12px", borderRadius: 7, border: `1px solid ${t.inputBorder}`, fontSize: 12, color: t.text3, cursor: "pointer", background: t.input }}>2025–2026 ▾</div>
+                        <div style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${t.inputBorder}`, fontSize: 12, color: t.text3, cursor: "pointer", background: t.input }}>Timeframe: 8 Months ▾</div>
                       </div>
-                      <div style={{ height: 200 }}>
+                      <div style={{ height: 300 }}>
                         <ResponsiveContainer>
                           <LineChart data={MONTHLY} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
                             <CartesianGrid strokeDasharray="3 3" stroke={t.gridLine} vertical={false} />
                             <XAxis dataKey="m" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: t.text4 }} />
                             <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: t.text4 }} domain={[80, "auto"]} tickFormatter={(v: any) => `$${v}`} />
                             <Tooltip formatter={(v: any) => [`$${v ?? 0}`, "Spend"]} contentStyle={tooltipStyle} />
-                            <Line type="monotone" dataKey="spend" stroke={t.line} strokeWidth={2.5} dot={{ fill: t.dot, r: 4 }} activeDot={{ r: 6 }} animationDuration={1000} />
+                            <Line type="monotone" dataKey="spend" stroke={t.line} strokeWidth={3} dot={{ fill: t.dot, r: 5 }} activeDot={{ r: 7 }} animationDuration={1000} />
                           </LineChart>
                         </ResponsiveContainer>
                       </div>
                     </div>
 
-                    {/* category */}
-                    <div style={{ flex: "1 1 260px", minWidth: 0, background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "22px 24px", transition: "all .3s" }}>
-                      <div style={{ fontSize: 15, fontWeight: 600, color: t.text, marginBottom: 4 }}>Spend by Category</div>
-                      <div style={{ fontSize: 11, color: t.text4, marginBottom: 16 }}>Current month breakdown</div>
-                      <div style={{ height: 200 }}>
-                        <ResponsiveContainer>
-                          <BarChart data={CATEGORY_DATA} margin={{ top: 0, right: 5, left: -20, bottom: 0 }}>
-                            <CartesianGrid strokeDasharray="3 3" stroke={t.gridLine} vertical={false} />
-                            <XAxis dataKey="cat" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: t.text4 }} />
-                            <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: t.text4 }} tickFormatter={(v: any) => `$${v}`} />
-                            <Tooltip formatter={(v: any) => [`$${v ?? 0}`, "Spend"]} contentStyle={tooltipStyle} />
-                            <Bar dataKey="total" fill={t.bar} radius={[3, 3, 0, 0]} animationDuration={900} />
-                          </BarChart>
-                        </ResponsiveContainer>
+                    <div style={{ display: "flex", gap: 14, flexWrap: isDesktop ? "nowrap" : "wrap" }}>
+                      {/* category */}
+                      <div style={{ flex: 1, background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "22px 24px", transition: "all .3s" }}>
+                        <div style={{ fontSize: 16, fontWeight: 600, color: t.text, marginBottom: 4 }}>Spend by Category</div>
+                        <div style={{ fontSize: 12, color: t.text4, marginBottom: 16 }}>Current month breakdown by subscription type</div>
+                        <div style={{ height: 260 }}>
+                          <ResponsiveContainer>
+                            <BarChart data={CATEGORY_DATA} margin={{ top: 0, right: 5, left: -20, bottom: 0 }}>
+                              <CartesianGrid strokeDasharray="3 3" stroke={t.gridLine} vertical={false} />
+                              <XAxis dataKey="cat" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: t.text4 }} />
+                              <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: t.text4 }} tickFormatter={(v: any) => `$${v}`} />
+                              <Tooltip formatter={(v: any) => [`$${v ?? 0}`, "Spend"]} contentStyle={tooltipStyle} />
+                              <Bar dataKey="total" fill={t.bar} radius={[4, 4, 0, 0]} animationDuration={900} />
+                            </BarChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </div>
+
+                      {/* Summary panel */}
+                      <div style={{ flex: "0 0 320px", background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "22px 24px", transition: "all .3s" }}>
+                        <div style={{ fontSize: 16, fontWeight: 600, color: t.text, marginBottom: 16 }}>Insights</div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                          <div style={{ padding: "12px 16px", background: t.greenBg, borderRadius: 16, border: `1px solid ${t.green}22` }}>
+                            <div style={{ fontSize: 12, fontWeight: 600, color: t.greenText }}>Most Expensive</div>
+                            <div style={{ fontSize: 15, color: t.text, marginTop: 4 }}>Runway ML ($35)</div>
+                          </div>
+                          <div style={{ padding: "12px 16px", background: t.amberBg, borderRadius: 16, border: `1px solid ${t.amber}22` }}>
+                            <div style={{ fontSize: 12, fontWeight: 600, color: t.amber }}>Pending Renewals</div>
+                            <div style={{ fontSize: 15, color: t.text, marginTop: 4 }}>3 services this week</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-
                 </>)}
+
 
                 {/* ── Subscriptions view ── */}
                 {activeNav === "Subscriptions" && (<>
@@ -662,7 +1029,7 @@ export default function App() {
                       <div style={{ display: "grid", gridTemplateColumns: "36px 1fr 80px 80px 90px 80px 60px", gap: 8, padding: "6px 14px 8px", borderBottom: `1px solid ${t.divider}`, fontSize: 10.5, color: t.text5, fontWeight: 500 }}>
                         <span /><span>Name</span><span>Price</span><span>Billing</span><span>Status</span><span>Next Due</span><span />
                       </div>
-                      {filtered.map(s => <SubRow key={s.id} s={s} onToggle={toggleSub} onDelete={deleteSub} t={t} />)}
+                      {filtered.map(s => <SubRow key={s.id} s={s} onToggle={toggleSub} onDelete={deleteSub} onEdit={handleEdit} t={t} />)}
                       {filtered.length === 0 && <div style={{ padding: "24px", textAlign: "center", color: t.text4, fontSize: 13 }}>No subscriptions in this category.</div>}
                     </div>
 
@@ -705,12 +1072,14 @@ export default function App() {
                   </div>
 
                 </>)}
-
-              </div>
-            </div>
-          </div>   {/* closes main-scroll */}
-        </div>   {/* closes main flex-column */}
-      </div>
+              </div> {/* closes padding container (746) */}
+            </div> {/* closes main-scroll (745) */}
+          </div> {/* closes main contentArea (715) */}
+          <AddSubModal open={addModalOpen} onClose={() => setAddModalOpen(false)} onAdd={onAddSubscription} t={t} />
+          <EditModal open={editModalOpen} sub={editingSub} onClose={() => { setEditModalOpen(false); setEditingSub(null); }} onUpdate={updateSub} t={t} />
+          <ConfirmDeleteModal open={confirmDeleteOpen} sub={subToDelete} onClose={() => { setConfirmDeleteOpen(false); setSubToDelete(null); }} onConfirm={confirmDelete} t={t} />
+        </div> {/* closes frame (703) */}
+      </div> {/* closes outer (702) */}
     </>
   );
 }
