@@ -42,11 +42,15 @@ function AnimNum({ value, prefix = "", duration = 1100, decimals = 0 }: AnimNumP
 
 /* ── theme tokens ── */
 const LIGHT = {
-  bg: "#F4F2EE",
-  frame: "#F4F2EE",
-  outer: "#E8E5DE",
-  sidebar: "#FAFAF8",
-  sidebarBorder: "#EEECE8",
+  bg: "#ECEEF0",
+  frame: "#ECEEF0",
+  outer: "#E5ECCA",
+  sidebar: "#1C1C1E",
+  sidebarBorder: "#1C1C1E",
+  sbText: "#FFFFFF",
+  sbText2: "#A0A0A0",
+  sbActiveBg: "#FFFFFF",
+  sbActiveText: "#1A1A1A",
   card: "#fff",
   cardBorder: "#EEEDEA",
   input: "#fff",
@@ -100,6 +104,10 @@ const DARK: Theme = {
   outer: "#111113",
   sidebar: "#1A1A1E",
   sidebarBorder: "#2A2A2F",
+  sbText: "#F0F0F2",
+  sbText2: "#B0B0BC",
+  sbActiveBg: "#2D2D35",
+  sbActiveText: "#F0F0F2",
   card: "#222228",
   cardBorder: "#2E2E35",
   input: "#2A2A30",
@@ -235,35 +243,37 @@ interface DarkToggleProps {
   dark: boolean;
   setDark: React.Dispatch<React.SetStateAction<boolean>>;
   t: Theme;
+  collapsed?: boolean;
 }
 
-function DarkToggle({ dark, setDark, t }: DarkToggleProps) {
+function DarkToggle({ dark, setDark, t, collapsed }: DarkToggleProps) {
   return (
     <button
       onClick={() => setDark((d: boolean) => !d)}
       title={dark ? "Switch to light mode" : "Switch to dark mode"}
       style={{
-        display: "flex", alignItems: "center", gap: 7,
-        padding: "6px 10px 6px 8px", borderRadius: 20,
-        border: `1px solid ${t.inputBorder}`,
-        background: t.input, cursor: "pointer",
+        display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
+        padding: collapsed ? "0" : "6px 14px 6px 4px", borderRadius: 40,
+        width: collapsed ? 40 : "auto", height: collapsed ? 40 : "auto", margin: "0",
+        border: collapsed ? "1px solid transparent" : `1px solid ${t.inputBorder}`,
+        background: collapsed ? "transparent" : t.input, cursor: "pointer",
         fontFamily: "inherit", transition: "all .25s",
       }}
     >
       <div style={{
-        width: 32, height: 18, borderRadius: 10,
+        width: 38, height: 22, borderRadius: 12,
         background: t.toggleTrack,
         position: "relative", transition: "background .3s", flexShrink: 0,
       }}>
         <div style={{
-          position: "absolute", top: 2, left: dark ? 16 : 2,
-          width: 14, height: 14, borderRadius: "50%",
+          position: "absolute", top: 3, left: dark ? 19 : 3,
+          width: 16, height: 16, borderRadius: "50%",
           background: t.toggleThumb,
           boxShadow: "0 1px 3px rgba(0,0,0,.3)",
           transition: "left .25s cubic-bezier(.16,1,.3,1)",
         }} />
       </div>
-      <span style={{ fontSize: 13 }}>{t.toggleIcon}</span>
+      {!collapsed && <span style={{ fontSize: 13, marginRight: 2 }}>{t.toggleIcon}</span>}
     </button>
 
   );
@@ -297,7 +307,7 @@ function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t,
   const content = (
     <aside style={{ width: "100%", height: "100%", background: t.sidebar, display: "flex", flexDirection: "column", borderRight: `1px solid ${t.sidebarBorder}`, fontFamily: "inherit", transition: "background .3s, border-color .3s", overflow: "hidden" }}>
 
-      {/* logo */}
+      {/* logo and user profile */}
       <div style={{ padding: collapsed ? "20px 0 10px" : "20px 18px 10px", display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "space-between", transition: "padding .3s" }}>
         {collapsed ? (
           <div style={{ width: 32, height: 32, borderRadius: 8, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -308,19 +318,21 @@ function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t,
             <div style={{ width: 32, height: 32, borderRadius: 8, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               <Logo t={t} size={32} />
             </div>
-            <span style={{ fontWeight: 700, fontSize: 15.5, color: t.text, letterSpacing: -0.3, whiteSpace: "nowrap", transition: "color .3s" }}>subbie</span>
+            <span style={{ fontWeight: 700, fontSize: 15.5, color: t.sbText, letterSpacing: -0.3, whiteSpace: "nowrap", transition: "color .3s" }}>subbie</span>
           </div>
         )}
         {isMobile && (
-          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: t.text3, display: "flex", padding: 4 }}>
+          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: t.sbText2, display: "flex", padding: 4 }}>
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 4l10 10M14 4L4 14" /></svg>
           </button>
         )}
       </div>
 
+
+
       {/* nav */}
       <div style={{ flex: 1, padding: collapsed ? "0 8px" : "0 10px", overflowY: "auto", overflowX: "hidden" }}>
-        {!collapsed && <div style={{ padding: "8px 8px 6px", fontSize: 10, fontWeight: 600, letterSpacing: 1.2, color: t.text5, textTransform: "uppercase", whiteSpace: "nowrap" }}>MAIN MENU</div>}
+        {!collapsed && <div style={{ padding: "8px 8px 6px", fontSize: 10, fontWeight: 600, letterSpacing: 1.2, color: t.sbText2, textTransform: "uppercase", whiteSpace: "nowrap" }}>MAIN MENU</div>}
         {collapsed && <div style={{ height: 14 }} />}
         {navItems.map(item => {
           const isA = active === item.name;
@@ -328,10 +340,10 @@ function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t,
             /* collapsed: icon-only circle */
             <button key={item.name} title={item.name} onClick={() => { setActive(item.name); if (isMobile) onClose(); }} style={{
               position: "relative", display: "flex", alignItems: "center", justifyContent: "center",
-              width: 40, height: 40, borderRadius: 10, margin: "0 auto 4px",
+              width: 40, height: 40, borderRadius: 40, margin: "0 auto 4px",
               border: isA ? `1px solid ${t.navActiveBorder}` : "1px solid transparent",
-              background: isA ? t.navActive : "transparent",
-              color: isA ? t.text : t.text2,
+              background: isA ? t.sbActiveBg : "transparent",
+              color: isA ? t.sbActiveText : t.sbText2,
               cursor: "pointer", transition: "all .15s",
             }}>
               <span style={{ display: "flex" }}>{icons[item.icon]}</span>
@@ -341,10 +353,10 @@ function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t,
             /* expanded: full row */
             <button key={item.name} onClick={() => { setActive(item.name); if (isMobile) onClose(); }} style={{
               display: "flex", alignItems: "center", gap: 9, width: "100%",
-              padding: "7px 10px", borderRadius: 8,
+              padding: "9px 12px", borderRadius: 40,
               border: isA ? `1px solid ${t.navActiveBorder}` : "1px solid transparent",
-              background: isA ? t.navActive : "transparent",
-              color: isA ? t.text : t.text2,
+              background: isA ? t.sbActiveBg : "transparent",
+              color: isA ? t.sbActiveText : t.sbText2,
               fontSize: 13, fontWeight: isA ? 600 : 400, cursor: "pointer",
               fontFamily: "inherit", textAlign: "left", marginBottom: 1,
               transition: "all .15s", whiteSpace: "nowrap",
@@ -365,7 +377,7 @@ function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t,
             height: 40, borderRadius: 10,
             border: "1px solid transparent",
             background: "transparent",
-            color: t.text3, cursor: "pointer",
+            color: t.sbText2, cursor: "pointer",
             fontFamily: "inherit", marginBottom: 1, marginTop: 8,
             marginLeft: collapsed ? "auto" : 0, marginRight: collapsed ? "auto" : 0,
             transition: "all .15s",
@@ -374,39 +386,28 @@ function Sidebar({ open, onClose, isMobile, active, setActive, dark, setDark, t,
               style={{ transform: collapsed ? "rotate(180deg)" : "none", transition: "transform .3s", flexShrink: 0 }}>
               <path d="M10 4L6 8l4 4" />
             </svg>
-            {!collapsed && <span style={{ fontSize: 12, color: t.text3 }}>Collapse</span>}
+            {!collapsed && <span style={{ fontSize: 12, color: t.sbText2 }}>Collapse</span>}
           </button>
         )}
       </div>
 
-      {/* monthly spend badge — hidden when collapsed */}
-      {!collapsed && (
-        <div style={{ margin: "8px 14px", padding: "12px 14px", borderRadius: 10, background: t.spendbg, border: `1px solid ${t.spendBorder}`, transition: "all .3s" }}>
-          <div style={{ fontSize: 10.5, color: t.text4, marginBottom: 4 }}>This month's spend</div>
-          <div style={{ fontSize: 22, fontWeight: 700, color: t.text, letterSpacing: -0.5 }}>${totalNow}</div>
-          <div style={{ fontSize: 10.5, color: t.greenText, marginTop: 2, fontWeight: 500 }}>↑ $20 from last month</div>
+      <div style={{ marginTop: "auto", padding: collapsed ? "0 8px 18px" : "0 10px 18px", display: "flex", flexDirection: "column", alignItems: collapsed ? "center" : "flex-start", gap: 8 }}>
+        {/* user profile */}
+        <div style={{ margin: "0", display: "flex", alignItems: "center", gap: 9, padding: collapsed ? "0" : "4px 8px 4px 4px", width: collapsed ? 40 : "100%", minWidth: 0, height: collapsed ? 40 : "auto", justifyContent: collapsed ? "center" : "flex-start", cursor: "pointer", transition: "all .25s", background: "transparent", border: "1px solid transparent", borderRadius: 40 }}>
+          <div style={{ width: 32, height: 32, borderRadius: "50%", background: t.avatar, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 11, fontWeight: 700, flexShrink: 0 }}>U</div>
+          {!collapsed && (
+            <div style={{ overflow: "hidden", textAlign: "left", flex: 1 }}>
+              <div style={{ fontSize: 12.5, fontWeight: 600, color: t.sbText, lineHeight: 1.2, transition: "color .3s", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>User</div>
+              <div style={{ fontSize: 10.5, color: t.sbText2, lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginTop: 1 }}>Personal Plan</div>
+            </div>
+          )}
         </div>
-      )}
 
-      {/* dark toggle + add btn */}
-      {!collapsed ? (
-        <>
-          <div style={{ padding: "4px 14px 6px" }}>
-            <DarkToggle dark={dark} setDark={setDark} t={t} />
-          </div>
-          <div style={{ padding: "6px 14px 18px" }}>
-            <button style={{ width: "100%", padding: "9px", borderRadius: 8, border: "none", background: t.addBtn, color: t.addBtnText, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, transition: "background .3s" }}>
-              {icons.plus} Add Subscription
-            </button>
-          </div>
-        </>
-      ) : (
-        <div style={{ padding: "8px 0 18px", display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-          <button title="Add Subscription" style={{ width: 40, height: 40, borderRadius: 10, border: "none", background: t.addBtn, color: t.addBtnText, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background .3s" }}>
-            {icons.plus}
-          </button>
+        {/* dark toggle */}
+        <div style={{ display: "flex", justifyContent: collapsed ? "center" : "flex-start", width: collapsed ? "auto" : "100%", paddingLeft: collapsed ? 0 : 2 }}>
+          <DarkToggle dark={dark} setDark={setDark} t={t} collapsed={collapsed} />
         </div>
-      )}
+      </div>
     </aside>
   );
 
@@ -437,7 +438,7 @@ function StatCard({ label, value, sub, change, positive, delay = 0, prefix = "$"
   const [vis, setVis] = useState(false);
   useEffect(() => { const t2 = setTimeout(() => setVis(true), delay); return () => clearTimeout(t2); }, []);
   return (
-    <div style={{ flex: "1 1 0", minWidth: 0, background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "16px 18px", opacity: vis ? 1 : 0, transform: vis ? "none" : "translateY(8px)", transition: "all .5s cubic-bezier(.16,1,.3,1), background .3s, border-color .3s" }}>
+    <div style={{ flex: "1 1 0", minWidth: 0, background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "20px 22px", opacity: vis ? 1 : 0, transform: vis ? "none" : "translateY(8px)", transition: "all .5s cubic-bezier(.16,1,.3,1), background .3s, border-color .3s" }}>
       <div style={{ fontSize: 12, color: t.text3, marginBottom: 8 }}>{label}</div>
       <div style={{ fontSize: 28, fontWeight: 700, color: t.text, letterSpacing: -0.8, lineHeight: 1 }}>
         <AnimNum value={value} prefix={prefix} />
@@ -496,8 +497,8 @@ function SubRow({ s, onToggle, onDelete, t }: SubRowProps) {
       </div>
       <div style={{ fontSize: 11.5, color: t.text3 }}>{s.next}</div>
       <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
-        <button onClick={() => onToggle(s.id)} style={{ width: 26, height: 26, borderRadius: 6, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.text3 }}>{s.status === "active" ? icons.pause : icons.play}</button>
-        <button onClick={() => onDelete(s.id)} style={{ width: 26, height: 26, borderRadius: 6, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.red }}>{icons.trash}</button>
+        <button onClick={() => onToggle(s.id)} style={{ width: 26, height: 26, borderRadius: 20, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.text3 }}>{s.status === "active" ? icons.pause : icons.play}</button>
+        <button onClick={() => onDelete(s.id)} style={{ width: 26, height: 26, borderRadius: 20, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.red }}>{icons.trash}</button>
       </div>
     </div>
   );
@@ -567,7 +568,7 @@ export default function App() {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   {isMobile && (
-                    <button onClick={() => setSidebarOpen(true)} style={{ width: 36, height: 36, borderRadius: 8, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.text2 }}>
+                    <button onClick={() => setSidebarOpen(true)} style={{ width: 36, height: 36, borderRadius: 40, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: t.text2 }}>
                       <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M3 5h12M3 9h12M3 13h12" /></svg>
                     </button>
                   )}
@@ -577,16 +578,10 @@ export default function App() {
                   </div>
                 </div>
                 <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                  {/* user avatar pill */}
-                  <div style={{ display: "flex", alignItems: "center", gap: 9, padding: "6px 12px 6px 6px", borderRadius: 40, border: `1px solid ${t.inputBorder}`, background: t.input, cursor: "pointer", transition: "all .25s" }}>
-                    <div style={{ width: 32, height: 32, borderRadius: "50%", background: t.avatar, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 11, fontWeight: 700, flexShrink: 0 }}>U</div>
-                    {!isMobile && (
-                      <div>
-                        <div style={{ fontSize: 12.5, fontWeight: 600, color: t.text, lineHeight: 1.2, transition: "color .3s" }}>User</div>
-                        <div style={{ fontSize: 10.5, color: t.text4, lineHeight: 1.2 }}>Personal Plan</div>
-                      </div>
-                    )}
-                  </div>
+                  {/* add subscription button */}
+                  <button style={{ padding: "10px 18px", borderRadius: 40, border: "none", background: t.addBtn, color: t.addBtnText, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", gap: 6, transition: "background .3s", boxShadow: "0 2px 8px rgba(74, 124, 89, 0.2)" }}>
+                    {icons.plus} {!isMobile && "Add Subscription"}
+                  </button>
                 </div>
               </div>
             </div>
@@ -608,7 +603,7 @@ export default function App() {
                   {/* charts row */}
                   <div style={{ display: "flex", gap: 14, flexWrap: isDesktop ? "nowrap" : "wrap" }}>
                     {/* trend */}
-                    <div style={{ flex: "1 1 380px", minWidth: 0, background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 20px", transition: "all .3s" }}>
+                    <div style={{ flex: "1 1 380px", minWidth: 0, background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "22px 24px", transition: "all .3s" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, flexWrap: "wrap", gap: 8 }}>
                         <div>
                           <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>Monthly Spend Trend</div>
@@ -630,7 +625,7 @@ export default function App() {
                     </div>
 
                     {/* category */}
-                    <div style={{ flex: "1 1 260px", minWidth: 0, background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 20px", transition: "all .3s" }}>
+                    <div style={{ flex: "1 1 260px", minWidth: 0, background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "22px 24px", transition: "all .3s" }}>
                       <div style={{ fontSize: 15, fontWeight: 600, color: t.text, marginBottom: 4 }}>Spend by Category</div>
                       <div style={{ fontSize: 11, color: t.text4, marginBottom: 16 }}>Current month breakdown</div>
                       <div style={{ height: 200 }}>
@@ -655,7 +650,7 @@ export default function App() {
                   {/* subs table + side panels */}
                   <div style={{ display: "flex", gap: 14, flexWrap: isDesktop ? "nowrap" : "wrap" }}>
                     {/* table */}
-                    <div style={{ flex: "1 1 420px", minWidth: 0, background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 0 8px", transition: "all .3s" }}>
+                    <div style={{ flex: "1 1 420px", minWidth: 0, background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "20px 0 8px", transition: "all .3s" }}>
                       <div style={{ padding: "0 14px 14px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
                         <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>All Subscriptions</div>
                         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
@@ -674,7 +669,7 @@ export default function App() {
                     {/* right panels */}
                     <div style={{ display: "flex", flexDirection: "column", gap: 14, flex: "0 0 280px", minWidth: 0 }}>
                       {/* upcoming */}
-                      <div style={{ background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 18px 12px", transition: "all .3s" }}>
+                      <div style={{ background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "20px 20px 14px", transition: "all .3s" }}>
                         <div style={{ fontSize: 15, fontWeight: 600, color: t.text, marginBottom: 4 }}>Upcoming Renewals</div>
                         <div style={{ fontSize: 11, color: t.text4, marginBottom: 14 }}>Next 7 days</div>
                         {UPCOMING.map((s, i) => (
@@ -690,7 +685,7 @@ export default function App() {
                       </div>
 
                       {/* recent payments */}
-                      <div style={{ background: t.card, borderRadius: 12, border: `1px solid ${t.cardBorder}`, padding: "18px 18px 12px", transition: "all .3s" }}>
+                      <div style={{ background: t.card, borderRadius: 24, border: `1px solid ${t.cardBorder}`, padding: "20px 20px 14px", transition: "all .3s" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
                           <div style={{ fontSize: 15, fontWeight: 600, color: t.text }}>Recent Payments</div>
                           <span style={{ fontSize: 12, color: t.text2, cursor: "pointer", fontWeight: 500 }}>View All</span>
